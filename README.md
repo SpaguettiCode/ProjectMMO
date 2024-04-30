@@ -1,2 +1,2 @@
 # ProjectMMO
-Proyecto en conjunto entre Fran, Yasser, y Jose Vicente
+Proyecto en conjunto entre Fran, Valent, y Jose Vicente
