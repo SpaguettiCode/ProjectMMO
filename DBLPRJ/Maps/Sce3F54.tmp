@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://jkyx46fjece8"]
+[gd_scene load_steps=10 format=3 uid="uid://jkyx46fjece8"]
 
 [ext_resource type="Script" path="res://Scripts/Player_Action.gd" id="1_ku1fn"]
 
@@ -16,8 +16,6 @@ agent_radius = 0.0
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4ktdp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m667h"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_ubfi2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t62rf"]
 sky_energy_multiplier = 2.45
@@ -46,6 +44,16 @@ mesh = SubResource("BoxMesh_umyhc")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/MeshInstance3D/StaticBody3D"]
 shape = SubResource("BoxShape3D_0042o")
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="NavigationRegion3D" groups=["Enemies"]]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.997312, 7.42311)
+mesh = SubResource("BoxMesh_umyhc")
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/MeshInstance3D2/StaticBody3D"]
+shape = SubResource("BoxShape3D_0042o")
+
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05555, -3.62861)
 script = ExtResource("1_ku1fn")
@@ -58,10 +66,6 @@ shape = SubResource("CapsuleShape3D_m667h")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="CharacterBody3D"]
 target_desired_distance = 0.1
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="CharacterBody3D"]
-transform = Transform3D(0.528917, 0, 0, 0, 0.295931, 0, 0, 0, 0.50478, 0, 0.637957, -0.512055)
-mesh = SubResource("BoxMesh_ubfi2")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ib037")

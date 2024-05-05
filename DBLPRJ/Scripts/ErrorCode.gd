@@ -4,7 +4,9 @@ enum ERRORCODE {CORRECT,ERROR,INFO}
 
 var ErrorText : Array = [
 	"desconocido.",
-	"zona vacia."
+	"zona vacia.",
+	"no en area",
+	"resutlado: NULL"
 ]
 
 func MessageType(Message:String,ErrorType:ERRORCODE):
@@ -16,5 +18,11 @@ func MessageType(Message:String,ErrorType:ERRORCODE):
 		ERRORCODE.INFO:
 			print_rich("[color=blue]INFO: [/color]" + Message)
 
+
 func MessageError(errorCode : int):
-	return MessageType(ErrorText[errorCode],ERRORCODE.ERROR)
+	if !errorCode >= ErrorText.size() || errorCode == null:
+		return MessageType(ErrorText[errorCode],ERRORCODE.ERROR)
+	else:
+		return MessageType(ErrorText[0],ERRORCODE.ERROR)
+
+
