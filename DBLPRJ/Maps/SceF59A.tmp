@@ -1,0 +1,70 @@
+[gd_scene load_steps=11 format=3 uid="uid://jkyx46fjece8"]
+
+[ext_resource type="Script" path="res://Scripts/Player_Action.gd" id="1_ku1fn"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_m843n"]
+vertices = PackedVector3Array(-15, 0.025, 7.5, -15, 0.025, 15, -7.5, 0.025, 15, 7.5, 0.025, 15, 15, 0.025, 15, 15, 0.025, 7.5, 15, 0.025, -7.5, 15, 0.025, -15, 7.5, 0.025, -15, -7.5, 0.025, -15, -15, 0.025, -15, -15, 0.025, -7.5, -15, 0.025, 0, -15, 0.025, 7.5, -7.5, 0.025, 15, 0, 0.025, 15, 7.5, 0.025, 15, 15, 0.025, 7.5, 15, 0.025, 0, 15, 0.025, -7.5, 7.5, 0.025, -15, 0, 0.025, -15, 0, 0.025, -15, -7.5, 0.025, -15, -15, 0.025, -7.5, -15, 0.025, 0, 15, 0.025, 0, 0, 0.025, -15, -15, 0.025, 0, -7.5, 0.025, 15, 0, 0.025, 15, 15, 0.025, 7.5)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(8, 7, 6), PackedInt32Array(11, 10, 9), PackedInt32Array(14, 13, 12), PackedInt32Array(17, 16, 15), PackedInt32Array(19, 18, 20), PackedInt32Array(20, 18, 21), PackedInt32Array(23, 22, 24), PackedInt32Array(24, 22, 25), PackedInt32Array(31, 30, 26), PackedInt32Array(26, 30, 29), PackedInt32Array(26, 29, 28), PackedInt32Array(26, 28, 27)]
+cell_size = 0.01
+cell_height = 0.01
+agent_radius = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_umyhc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0042o"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4ktdp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m667h"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ubfi2"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_t62rf"]
+sky_energy_multiplier = 2.45
+
+[sub_resource type="Sky" id="Sky_fgc7d"]
+sky_material = SubResource("ProceduralSkyMaterial_t62rf")
+
+[sub_resource type="Environment" id="Environment_ib037"]
+background_mode = 2
+sky = SubResource("Sky_fgc7d")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+
+[node name="TestMap" type="Node3D"]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0319648, 0.0278435, 0.0626473)
+navigation_mesh = SubResource("NavigationMesh_m843n")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D"]
+transform = Transform3D(30, 0, 0, 0, 0.01, 0, 0, 0, 30, 0, 0, 0)
+mesh = SubResource("BoxMesh_umyhc")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_0042o")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05555, -3.62861)
+script = ExtResource("1_ku1fn")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("CapsuleMesh_4ktdp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_m667h")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="CharacterBody3D"]
+target_desired_distance = 0.1
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="CharacterBody3D"]
+transform = Transform3D(0.528917, 0, 0, 0, 0.295931, 0, 0, 0, 0.50478, 0, 0.637957, -0.512055)
+mesh = SubResource("BoxMesh_ubfi2")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ib037")
+
+[node name="Camera3D" type="Camera3D" parent="." groups=["Camera"]]
+transform = Transform3D(-4.37114e-08, -0.64812, 0.761538, 0, 0.761538, 0.64812, -1, 2.83302e-08, -3.32879e-08, 10.4459, 6.83589, -0.230326)

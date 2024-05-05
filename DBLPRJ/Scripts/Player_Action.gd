@@ -6,8 +6,7 @@ extends CharacterBody3D
 @onready var cameraAgent : Camera3D = $"../Camera3D"
 
 var error = ErrorCode
-var stateselected = State
-var state = State.StateNow.Move
+
 
 var rayQuery = PhysicsRayQueryParameters3D.new()
 
@@ -21,8 +20,6 @@ func moveCameraToPlayer():
 
 
 func _process(delta):
-	if get_tree().get_nodes_in_group("Enemies"):
-		Enemie = stateselected.Clicked
 	if(navigationAgent.is_navigation_finished()):
 		return 
 	moveToPoint(delta, Speed)
@@ -57,10 +54,12 @@ func _input(event):
 		else:
 			error.MessageError(1)
 	if Input.is_action_just_pressed("Attack"):
-		var targetPos = result.position
-		faceDirection(targetPos)
-		Attack()
-		return Attack()
+		if !result.is_empty():
+			var targetPos = result.position
+			faceDirection(targetPos)
+			Attack()
+		else:
+			error.MessageError(1)
 
 
 func Attack():
