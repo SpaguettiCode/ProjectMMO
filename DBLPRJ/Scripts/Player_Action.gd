@@ -17,7 +17,8 @@ func moveCameraToPlayer():
 	cameraAgent.position.x = self.position.x + 10
 	cameraAgent.position.z = self.position.z
 
-
+func _ready():
+	moveCameraToPlayer()
 
 func _process(delta):
 	if(navigationAgent.is_navigation_finished()):
