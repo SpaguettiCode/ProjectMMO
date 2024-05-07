@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c3na53y5lgc22"
+path="res://.godot/imported/PlaceholderTest.obj-c2823596a4d13cc35b18deca2b2f68ab.mesh"
+
+[deps]
+
+files=["res://.godot/imported/PlaceholderTest.obj-c2823596a4d13cc35b18deca2b2f68ab.mesh"]
+
+source_file="res://Models/Player/PlaceholderTest.obj"
+dest_files=["res://.godot/imported/PlaceholderTest.obj-c2823596a4d13cc35b18deca2b2f68ab.mesh", "res://.godot/imported/PlaceholderTest.obj-c2823596a4d13cc35b18deca2b2f68ab.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

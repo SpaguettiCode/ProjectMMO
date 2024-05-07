@@ -49,22 +49,23 @@ func _input(event):
 	rayQuery.to = to
 	rayQuery.collide_with_areas = true
 	var result = space.intersect_ray(rayQuery)
-	if Input.is_action_just_pressed("LeftMouse"):
+	if Input.is_action_pressed("LeftMouse"):
 		if !result.is_empty():
 			navigationAgent.target_position = result.position
 		else:
 			error.MessageError(1)
-	if Input.is_action_just_pressed("Attack"):
+	if Input.is_action_pressed("Attack"):
 		if !result.is_empty():
 			var targetPos = result.position
-			faceDirection(targetPos)
-			Attack()
+			if !$AnimationPlayer.animation_finished:
+				$AnimationPlayer.play()
+				faceDirection(targetPos)
+				Attack()
 		else:
 			error.MessageError(1)
 
 
 func Attack():
 	print("Attack")
-
 
 

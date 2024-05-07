@@ -1,6 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://jkyx46fjece8"]
 
 [ext_resource type="Script" path="res://Scripts/Player_Action.gd" id="1_ku1fn"]
+[ext_resource type="ArrayMesh" uid="uid://c3na53y5lgc22" path="res://Models/Player/PlaceholderTest.obj" id="2_di86u"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_m843n"]
 vertices = PackedVector3Array(-15, 0.025, 7.5, -15, 0.025, 15, -7.5, 0.025, 15, 7.5, 0.025, 15, 15, 0.025, 15, 15, 0.025, 7.5, 15, 0.025, -7.5, 15, 0.025, -15, 7.5, 0.025, -15, -7.5, 0.025, -15, -15, 0.025, -15, -15, 0.025, -7.5, -15, 0.025, 0, -15, 0.025, 7.5, -7.5, 0.025, 15, 0, 0.025, 15, 7.5, 0.025, 15, 15, 0.025, 7.5, 15, 0.025, 0, 15, 0.025, -7.5, 7.5, 0.025, -15, 0, 0.025, -15, 0, 0.025, -15, -7.5, 0.025, -15, -15, 0.025, -7.5, -15, 0.025, 0, 15, 0.025, 0, 0, 0.025, -15, -15, 0.025, 0, -7.5, 0.025, 15, 0, 0.025, 15, 15, 0.025, 7.5)
@@ -12,8 +13,6 @@ agent_radius = 0.0
 [sub_resource type="BoxMesh" id="BoxMesh_umyhc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0042o"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_4ktdp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_m667h"]
 
@@ -27,9 +26,11 @@ sky_material = SubResource("ProceduralSkyMaterial_t62rf")
 
 [sub_resource type="Environment" id="Environment_ib037"]
 background_mode = 2
+background_energy_multiplier = 3.0
 sky = SubResource("Sky_fgc7d")
 ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_energy = 3.0
 
 [node name="TestMap" type="Node3D"]
 
@@ -51,7 +52,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05555, -3.62861)
 script = ExtResource("1_ku1fn")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
-mesh = SubResource("CapsuleMesh_4ktdp")
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+mesh = ExtResource("2_di86u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 shape = SubResource("CapsuleShape3D_m667h")
@@ -62,6 +64,8 @@ target_desired_distance = 0.1
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="CharacterBody3D"]
 transform = Transform3D(0.528917, 0, 0, 0, 0.295931, 0, 0, 0, 0.50478, 0, 0.637957, -0.512055)
 mesh = SubResource("BoxMesh_ubfi2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_ib037")
