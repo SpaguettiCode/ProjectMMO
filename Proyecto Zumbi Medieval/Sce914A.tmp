@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://rh28bpq6hi5r"]
+
+[ext_resource type="PackedScene" uid="uid://dr5ds0sjkmq00" path="res://player.tscn" id="1_7sent"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_l254e"]
+vertices = PackedVector3Array(-4.5, 0.195, -4.5, -4.5, 0.195, 4.5, 4.5, 0.195, 4.5, 4.5, 0.195, -4.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+cell_height = 0.1
+
+[sub_resource type="BoxMesh" id="BoxMesh_gbxw1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kh8jd"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_l254e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D"]
+transform = Transform3D(10, 0, 0, 0, 0.01, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("BoxMesh_gbxw1")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/MeshInstance3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_kh8jd")
+
+[node name="Player" parent="." instance=ExtResource("1_7sent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.226218, 1.01762, 0.282722)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.819442, 0.573162, 0, -0.573162, -0.819442, 0, 0, 0)
