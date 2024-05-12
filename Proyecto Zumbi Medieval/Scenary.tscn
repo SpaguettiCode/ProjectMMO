@@ -15,7 +15,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.854862, 1.53847, 0.490941)
 transform = Transform3D(1, 0, 0, 0, -0.819442, 0.573162, 0, -0.573162, -0.819442, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="." groups=["Camera"]]
-transform = Transform3D(1, 0, 0, 0, 0.833539, 0.552461, 0, -0.552461, 0.833539, 0, 7.72882, 6.63546)
+transform = Transform3D(1, 0, 0, 0, 0.833539, 0.552461, 0, -0.552461, 0.833539, 0, 5, 6.635)
 current = true
 
 [node name="Scenary" type="MeshInstance3D" parent="."]

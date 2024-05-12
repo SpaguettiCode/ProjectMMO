@@ -11,7 +11,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func CameraPos():
 	$"../Camera3D".position.x = self.position.x
-	$"../Camera3D".position.z = self.position.z + 10
+	$"../Camera3D".position.z = self.position.z + 5
 
 
 
@@ -24,8 +24,11 @@ func _process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 		print("not floor")
+		$AnimationPlayer.play("Zeit_Rig|Salto_aire")
+
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		$AnimationPlayer.play("Zeit_Rig|Salto")
 
 	faceDirection(delta)
 	Action()
@@ -56,10 +59,16 @@ func Action():
 		input_vector.z -= 1
 	if Input.is_action_pressed("Abajo"):
 		input_vector.z += 1
-	$AnimationPlayer.play("Zeit_Rig|idle")
+	
 
-	velocity.x = input_vector.x * SPEED
-	velocity.z = input_vector.z * SPEED
+	velocity.x = input_vector.normalized().x * SPEED
+	velocity.z = input_vector.normalized().z * SPEED
+	
+	if velocity == Vector3.ZERO && await $AnimationPlayer.animation_finished:
+		$AnimationPlayer.play("Zeit_Rig|idle")
+	elif !velocity == Vector3.ZERO && await $AnimationPlayer.animation_finished:
+		$AnimationPlayer.play("Zeit_Rig|Run")
+
 	CameraPos()
 	move_and_slide()
 
@@ -78,3 +87,4 @@ func Attack(dammage):
 		rayQuery.collide_with_areas = true
 		var result = space.intersect_ray(rayQuery)
 		print("Disparo en: " + str(result))
+		$AnimationPlayer.play("Zeit_Rig|Defender")
