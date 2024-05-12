@@ -1,27 +1,40 @@
 extends CharacterBody3D
 
-
-const SPEED = 5
+const JUMP_VELOCITY = 4.5
+const SPEED = 7
 const SHIFT_MULTIPLIER = 2.5
-const ALT_MULTIPLIER = 1.0 / SHIFT_MULTIPLIER
 
-var _direction = Vector3(0.0, 0.0, 0.0)
-var _velocity = Vector3(0.0, 0.0, 0.0)
-var _acceleration = 30
-var _deceleration = -10
-var _vel_multiplier = 4
+var rotation_speed = 5.0  
+
+var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
-var rotation_speed = 5.0  # Velocidad de rotación (ajústala según tus necesidades)
+func CameraPos():
+	$"../Camera3D".position.x = self.position.x
+	$"../Camera3D".position.z = self.position.z + 10
+
+
+
+func _ready():
+	CameraPos()
+
+
 
 func _process(delta: float) -> void:
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+		print("not floor")
+	if Input.is_action_just_pressed("Jump") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
+
 	faceDirection(delta)
-	Action(delta)
+	Action()
+	Attack(randi_range(10,30))
+
 
 func faceDirection(delta):
 	var camera = get_tree().get_nodes_in_group("Camera")[0]
 	var mouse_position = get_viewport().get_mouse_position()
-	var ray_origin = camera.project_ray_origin(mouse_position)
 	var ray_direction = camera.project_ray_normal(mouse_position)
 	var camera_origin = camera.global_transform.origin
 	var base_ray = ray_direction.normalized()
@@ -29,12 +42,11 @@ func faceDirection(delta):
 	var intersection_point = camera_origin + base_ray * s
 	var target_direction = (intersection_point - global_transform.origin).normalized()
 	target_direction.y = 0
-	var look_rotation = Basis().looking_at(target_direction, Vector3(0, 1, 0))
+	var look_rotation = Basis().looking_at(target_direction, Vector3(0, 1, 0),false)
 	global_transform.basis = global_transform.basis.slerp(look_rotation, rotation_speed * delta)
 
 
-
-func Action(delta):
+func Action():
 	var input_vector = Vector3.ZERO
 	if Input.is_action_pressed("Izquierda"):
 		input_vector.x -= 1
@@ -44,6 +56,25 @@ func Action(delta):
 		input_vector.z -= 1
 	if Input.is_action_pressed("Abajo"):
 		input_vector.z += 1
-	velocity = input_vector.normalized() * SPEED
+	$AnimationPlayer.play("Zeit_Rig|idle")
+
+	velocity.x = input_vector.x * SPEED
+	velocity.z = input_vector.z * SPEED
+	CameraPos()
 	move_and_slide()
 
+
+func Attack(dammage):
+	if Input.is_action_just_pressed("Atacar"):
+		var camera = get_tree().get_nodes_in_group("Camera")[0]
+		var mousePos = get_viewport().get_mouse_position()
+		var rayQuery = PhysicsRayQueryParameters3D.new()
+		var rayLength = 100
+		var from = camera.project_ray_origin(mousePos)
+		var to = from + camera.project_ray_normal(mousePos) * rayLength
+		var space = get_world_3d().direct_space_state
+		rayQuery.from = from
+		rayQuery.to = to
+		rayQuery.collide_with_areas = true
+		var result = space.intersect_ray(rayQuery)
+		print("Disparo en: " + str(result))
