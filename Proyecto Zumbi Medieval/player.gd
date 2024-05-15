@@ -5,7 +5,7 @@ const SPEED = 7
 const SHIFT_MULTIPLIER = 2.5
 
 var rotation_speed = 5.0  
-
+@onready var animation = $AnimationPlayer
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 
@@ -26,6 +26,10 @@ func _process(delta: float) -> void:
 		print("not floor")
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+	if velocity.length() == 0:
+		animation.play("Idle")
+	else:
+		animation.play("Run")
 
 	faceDirection(delta)
 	Action()

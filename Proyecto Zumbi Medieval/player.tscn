@@ -12,7 +12,6 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7xe2d"]
 resource_name = "Escudo"
-albedo_color = Color(1, 1, 1, 1)
 albedo_texture = ExtResource("2_sr2aj")
 metallic = 1.0
 metallic_texture = ExtResource("3_vxs8s")
@@ -41,7 +40,6 @@ blend_shape_mode = 0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_01f7d"]
 resource_name = "Grit"
-albedo_color = Color(1, 1, 1, 1)
 albedo_texture = ExtResource("4_p4j8o")
 metallic = 0.4
 roughness = 0.307725
@@ -291,7 +289,6 @@ blend_shape_mode = 0
 resource_name = "Zeit_dif"
 transparency = 4
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 albedo_texture = ExtResource("5_obm25")
 metallic = 0.4
 roughness = 0.272166
@@ -534,7 +531,6 @@ bind/69/pose = Transform3D(-0.666163, 5.68425e-07, -4.4235, 3.79514e-07, 4.47339
 resource_name = "Ojos_dif"
 transparency = 4
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 albedo_texture = ExtResource("6_waud5")
 metallic = 0.4
 roughness = 0.272166
@@ -1030,7 +1026,6 @@ blend_shape_mode = 0
 resource_name = "Material"
 transparency = 4
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 albedo_texture = ExtResource("7_kinyt")
 metallic = 0.4
 roughness = 0.272166
@@ -1276,14 +1271,6 @@ length = 0.001
 resource_name = "Zeit_Rig|Defender_idle"
 length = 0.001
 
-[sub_resource type="Animation" id="Animation_im4k4"]
-resource_name = "Zeit_Rig|idle"
-length = 0.001
-
-[sub_resource type="Animation" id="Animation_mtngo"]
-resource_name = "Zeit_Rig|idle_escudo"
-length = 0.001
-
 [sub_resource type="Animation" id="Animation_25x0h"]
 resource_name = "Zeit_Rig|Reset"
 length = 0.001
@@ -1306,6 +1293,14 @@ length = 0.001
 
 [sub_resource type="Animation" id="Animation_486ml"]
 resource_name = "Zeit_Rig|Walk"
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_im4k4"]
+resource_name = "Zeit_Rig|idle"
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_mtngo"]
+resource_name = "Zeit_Rig|idle_escudo"
 length = 0.001
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_soypr"]

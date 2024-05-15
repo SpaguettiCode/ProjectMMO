@@ -1,0 +1,13 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1715803492
+player.gd::GDScript::-1::1715803028::0::1::::<>CharacterBody3D<>::
+player.tscn::PackedScene::8414619362129240779::1715803028::0::1::::<><>::res://player.gd<>uid://b7lytie6dof85::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_Escudo_dif.jpg<>uid://cndkgwvnaumkv::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_ao_met_rough_Escudo_rug.png<>uid://c1kc6whk2it61::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_UV Grid.jpg<>uid://cw656pawyvylg::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_Zeit_dif.png<>uid://b8522kyqqdqrq::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_Ojod_dif.png<>uid://oo7dkf0k0vf8::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_Boca.png
+Player_2.tscn::PackedScene::8208091980417206262::1715803492::0::1::::<><>::res://player.gd
+Scenary.tscn::PackedScene::1209359352592620053::1715803027::0::1::::<><>::uid://dr5ds0sjkmq00::::res://player.tscn
+Zeit-9db40d20d502a0a74c9b3cec986f3087_ao_met_rough_Escudo_rug.png::CompressedTexture2D::5692108541179953177::1715803027::1715803238::1::::<><>::
+Zeit-9db40d20d502a0a74c9b3cec986f3087_Boca.png::CompressedTexture2D::1013493934747311335::1715803027::1715803238::1::::<><>::
+Zeit-9db40d20d502a0a74c9b3cec986f3087_Escudo_dif.jpg::CompressedTexture2D::4656663401094466196::1715803027::1715803238::1::::<><>::
+Zeit-9db40d20d502a0a74c9b3cec986f3087_Ojod_dif.png::CompressedTexture2D::4766271994667382314::1715803027::1715803239::1::::<><>::
+Zeit-9db40d20d502a0a74c9b3cec986f3087_UV Grid.jpg::CompressedTexture2D::6618573039930333428::1715803027::1715803239::1::::<><>::
+Zeit-9db40d20d502a0a74c9b3cec986f3087_Zeit_dif.png::CompressedTexture2D::6382869296075570372::1715803027::1715804344::1::::<><>::
+Zeit.blend::PackedScene::6648573894430180675::1705111344::1715803307::1::::<><>::
