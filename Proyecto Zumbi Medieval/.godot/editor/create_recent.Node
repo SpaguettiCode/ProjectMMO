@@ -1,3 +1,6 @@
+Label
+ColorRect
+Control
 BoneAttachment3D
 SkeletonIK3D
 CharacterBody3D
