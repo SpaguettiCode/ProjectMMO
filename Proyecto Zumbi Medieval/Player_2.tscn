@@ -9034,7 +9034,7 @@ bones/69/rotation = Quaternion(-0.48061, 0.552489, -0.518665, 0.441311)
 bones/69/scale = Vector3(1, 1, 1)
 
 [node name="Escudo" type="BoneAttachment3D" parent="Zeit_Rig/Skeleton3D"]
-transform = Transform3D(-0.942886, -0.153592, -0.295592, -0.153561, -0.587037, 0.794862, -0.295608, 0.794856, 0.529924, 1.09813, 0.338747, 0.755139)
+transform = Transform3D(-0.942887, -0.153593, -0.295592, -0.15356, -0.587037, 0.794863, -0.295608, 0.794857, 0.529924, 1.09813, 0.338746, 0.755139)
 bone_name = "L.Palma"
 bone_idx = 7
 
@@ -9045,7 +9045,7 @@ mesh = SubResource("ArrayMesh_jpojv")
 skeleton = NodePath("")
 
 [node name="espada" type="BoneAttachment3D" parent="Zeit_Rig/Skeleton3D"]
-transform = Transform3D(-0.98863, 0.0773521, -0.128949, -0.0591234, 0.588519, 0.806319, 0.13826, 0.804775, -0.577254, -1.05049, -0.521764, 0.49794)
+transform = Transform3D(-0.98863, 0.077352, -0.128949, -0.0591236, 0.588518, 0.806319, 0.138259, 0.804775, -0.577254, -1.05049, -0.521765, 0.49794)
 bone_name = "R.Espada"
 bone_idx = 17
 

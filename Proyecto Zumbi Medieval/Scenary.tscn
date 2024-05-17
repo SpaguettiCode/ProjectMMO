@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://rh28bpq6hi5r"]
+[gd_scene load_steps=10 format=3 uid="uid://rh28bpq6hi5r"]
 
 [ext_resource type="PackedScene" uid="uid://do7cctrk62vgo" path="res://Player_2.tscn" id="1_6wsjw"]
+[ext_resource type="Texture2D" uid="uid://c1kc6whk2it61" path="res://Zeit-9db40d20d502a0a74c9b3cec986f3087_UV Grid.jpg" id="1_udhw3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j2glm"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -14,9 +15,15 @@ background_mode = 2
 sky = SubResource("Sky_mwaui")
 tonemap_mode = 2
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ryw72"]
+albedo_texture = ExtResource("1_udhw3")
+
 [sub_resource type="BoxMesh" id="BoxMesh_gbxw1"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_kh8jd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bc13"]
+albedo_texture = ExtResource("1_udhw3")
 
 [node name="Node3D" type="Node3D"]
 
@@ -34,6 +41,7 @@ far = 100.0
 
 [node name="Scenary" type="MeshInstance3D" parent="."]
 transform = Transform3D(15, 0, 0, 0, 0.015, 0, 0, 0, 15, -0.0335638, 0.0156052, -0.00349904)
+material_override = SubResource("StandardMaterial3D_ryw72")
 mesh = SubResource("BoxMesh_gbxw1")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Scenary"]
@@ -43,6 +51,7 @@ shape = SubResource("BoxShape3D_kh8jd")
 
 [node name="Wall" type="MeshInstance3D" parent="."]
 transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 1.967, -0.0709368, 5.01698, -5.53829)
+material_override = SubResource("StandardMaterial3D_1bc13")
 mesh = SubResource("BoxMesh_gbxw1")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Wall"]
@@ -51,4 +60,4 @@ mesh = SubResource("BoxMesh_gbxw1")
 shape = SubResource("BoxShape3D_kh8jd")
 
 [node name="Zeit2" parent="." instance=ExtResource("1_6wsjw")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.138435, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.633047, 0)

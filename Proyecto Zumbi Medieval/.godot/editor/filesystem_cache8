@@ -1,10 +1,10 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1715906283
+::res://::1715913409
 icon.svg::CompressedTexture2D::60272848252565821::1715903637::1715903638::1::::<><>::
-player.gd::GDScript::-1::1715905864::0::1::::<>CharacterBody3D<>::
+player.gd::GDScript::-1::1715911274::0::1::::<>CharacterBody3D<>::
 player.tscn::PackedScene::8414619362129240779::1715903991::0::1::::<><>::res://player.gd<>uid://b7lytie6dof85::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_Escudo_dif.jpg<>uid://cndkgwvnaumkv::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_ao_met_rough_Escudo_rug.png<>uid://c1kc6whk2it61::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_UV Grid.jpg<>uid://cw656pawyvylg::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_Zeit_dif.png<>uid://b8522kyqqdqrq::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_Ojod_dif.png<>uid://oo7dkf0k0vf8::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_Boca.png
-Player_2.tscn::PackedScene::8208091980417206262::1715905866::0::1::::<><>::res://player.gd<>uid://c1kc6whk2it61::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_UV Grid.jpg<>uid://b7lytie6dof85::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_Escudo_dif.jpg<>uid://oo7dkf0k0vf8::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_Boca.png<>uid://cw656pawyvylg::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_Zeit_dif.png<>uid://b8522kyqqdqrq::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_Ojod_dif.png
-Scenary.tscn::PackedScene::1209359352592620053::1715905867::0::1::::<><>::uid://do7cctrk62vgo::::res://Player_2.tscn
+Player_2.tscn::PackedScene::8208091980417206262::1715911277::0::1::::<><>::res://player.gd<>uid://c1kc6whk2it61::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_UV Grid.jpg<>uid://b7lytie6dof85::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_Escudo_dif.jpg<>uid://oo7dkf0k0vf8::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_Boca.png<>uid://cw656pawyvylg::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_Zeit_dif.png<>uid://b8522kyqqdqrq::::res://Zeit-9db40d20d502a0a74c9b3cec986f3087_Ojod_dif.png
+Scenary.tscn::PackedScene::1209359352592620053::1715911316::0::1::::<><>::uid://do7cctrk62vgo::::res://Player_2.tscn
 Zeit-9db40d20d502a0a74c9b3cec986f3087_ao_met_rough_Escudo_rug.png::CompressedTexture2D::5692108541179953177::1715837261::1715837261::1::::<><>::
 Zeit-9db40d20d502a0a74c9b3cec986f3087_Boca.png::CompressedTexture2D::1013493934747311335::1715837261::1715837261::1::::<><>::
 Zeit-9db40d20d502a0a74c9b3cec986f3087_Escudo_dif.jpg::CompressedTexture2D::4656663401094466196::1715837261::1715837261::1::::<><>::
