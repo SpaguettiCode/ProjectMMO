@@ -1,0 +1,34 @@
+[gd_scene load_steps=7 format=3 uid="uid://dct82bpcgwvbh"]
+
+[ext_resource type="ArrayMesh" uid="uid://ct35j00jt1dy" path="res://Props/Paredes/Pared 1.mesh" id="1_xpokx"]
+[ext_resource type="ArrayMesh" uid="uid://dfsx6ftjhoabe" path="res://Props/Paredes/Viga 1.tres" id="2_to5uk"]
+[ext_resource type="ArrayMesh" uid="uid://dcmyvnm3wliwq" path="res://Props/Paredes/Pilar Grueso.mesh" id="3_m64eh"]
+[ext_resource type="ArrayMesh" uid="uid://gjsiq7s7mjc3" path="res://Props/Paredes/Pilar Fino.mesh" id="4_egs6o"]
+[ext_resource type="ArrayMesh" uid="uid://bupa5ba2ljfes" path="res://Props/Paredes/Ventana 1.mesh" id="5_yty7g"]
+[ext_resource type="ArrayMesh" uid="uid://b2w83x0816fo5" path="res://Props/Paredes/Puerta 1.mesh" id="6_dafkw"]
+
+[node name="Paredes"]
+
+[node name="SM_Wall" parent="." index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.55018, 0, -0.0456786)
+mesh = ExtResource("1_xpokx")
+
+[node name="SM_Viga Madera" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.15433, 0, 0)
+mesh = ExtResource("2_to5uk")
+
+[node name="SM_Pilar Madera M" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.17849, 0, 0)
+mesh = ExtResource("3_m64eh")
+
+[node name="SM_Pilar Madera S" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.35924, 0, 0)
+mesh = ExtResource("4_egs6o")
+
+[node name="SM_Wall1" parent="." index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75262, 0, 0)
+mesh = ExtResource("5_yty7g")
+
+[node name="SM_Wall1_002" parent="." index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.835112, 0, 0)
+mesh = ExtResource("6_dafkw")

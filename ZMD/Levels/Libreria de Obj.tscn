@@ -1,0 +1,54 @@
+[gd_scene load_steps=11 format=3 uid="uid://cgu7hku03h77n"]
+
+[ext_resource type="ArrayMesh" uid="uid://b70bdobrawq3e" path="res://Props/Utileria/Barril.mesh" id="1_7eobf"]
+[ext_resource type="ArrayMesh" uid="uid://t3d0maykdaki" path="res://Props/Utileria/Cubeta.mesh" id="2_tse8v"]
+[ext_resource type="ArrayMesh" uid="uid://dbo40l6x0xibi" path="res://Props/Utileria/Leño.mesh" id="3_7wm3f"]
+[ext_resource type="ArrayMesh" uid="uid://bnbwscgs0hey3" path="res://Props/Utileria/Leños.mesh" id="4_ng1ag"]
+[ext_resource type="ArrayMesh" uid="uid://d3kv4ykhnfn7y" path="res://Props/Utileria/Silla.mesh" id="5_b6a57"]
+[ext_resource type="ArrayMesh" uid="uid://b12hya6k8ecwp" path="res://Props/Utileria/Taburete.mesh" id="6_nbt8w"]
+[ext_resource type="ArrayMesh" uid="uid://slyvbqyl3j76" path="res://Props/Utileria/Taza.mesh" id="7_v7qqb"]
+[ext_resource type="ArrayMesh" uid="uid://baov2xvt1krfj" path="res://Props/Utileria/Vela 1.mesh" id="8_3bun1"]
+[ext_resource type="ArrayMesh" uid="uid://36vix40npg6l" path="res://Props/Utileria/Vela 2.mesh" id="9_i0fux"]
+[ext_resource type="ArrayMesh" uid="uid://dnp3hy6fbyjti" path="res://Props/Utileria/Mesa.mesh" id="10_auiun"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="Barril" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.20388, 0, 0.0764923)
+mesh = ExtResource("1_7eobf")
+
+[node name="Cubeta" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0588456, 0, -1.08703)
+mesh = ExtResource("2_tse8v")
+
+[node name="Leño" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.142801, 0, 1.39428)
+mesh = ExtResource("3_7wm3f")
+
+[node name="Leños" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.172186, 0, 3.18889)
+mesh = ExtResource("4_ng1ag")
+
+[node name="Silla" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.37603, 0, 2.46628)
+mesh = ExtResource("5_b6a57")
+
+[node name="Taburete" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.840535, 0, 3.62529)
+mesh = ExtResource("6_nbt8w")
+
+[node name="Taza" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3523, 0, 4.38143)
+mesh = ExtResource("7_v7qqb")
+
+[node name="Vela1" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.34144, 0, 3.42101)
+mesh = ExtResource("8_3bun1")
+
+[node name="Vela2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.32997, 0, 3.90277)
+mesh = ExtResource("9_i0fux")
+
+[node name="Mesa" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.71033, 0, 2.16228)
+mesh = ExtResource("10_auiun")
