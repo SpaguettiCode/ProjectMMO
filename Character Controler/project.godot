@@ -11,9 +11,8 @@ config_version=5
 [application]
 
 config/name="Character Controler"
-run/main_scene="res://Scenary/LVL_test/lvl_test.tscn"
+run/main_scene="res://LVL_test/lvl_test.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
-boot_splash/image="res://General/Image/TEAM.png"
 config/icon="res://icon.svg"
 
 [display]

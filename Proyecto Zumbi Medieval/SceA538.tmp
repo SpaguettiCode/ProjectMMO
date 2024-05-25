@@ -1,0 +1,54 @@
+[gd_scene load_steps=7 format=3 uid="uid://rh28bpq6hi5r"]
+
+[ext_resource type="PackedScene" uid="uid://do7cctrk62vgo" path="res://Player_2.tscn" id="1_6wsjw"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_j2glm"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_mwaui"]
+sky_material = SubResource("ProceduralSkyMaterial_j2glm")
+
+[sub_resource type="Environment" id="Environment_aw3mp"]
+background_mode = 2
+sky = SubResource("Sky_mwaui")
+tonemap_mode = 2
+
+[sub_resource type="BoxMesh" id="BoxMesh_gbxw1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kh8jd"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.662587, -0.653255, -0.366382, -0.557654, 0.103718, 0.823568, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_aw3mp")
+
+[node name="Camera3D" type="Camera3D" parent="." groups=["Camera"]]
+transform = Transform3D(1, 0, 0, 0, 0.833539, 0.552461, 0, -0.552461, 0.833539, 0, 6.11015, 5.91855)
+current = true
+far = 100.0
+
+[node name="Scenary" type="MeshInstance3D" parent="."]
+transform = Transform3D(15, 0, 0, 0, 0.015, 0, 0, 0, 15, -0.0335638, 0.0156052, -0.00349904)
+mesh = SubResource("BoxMesh_gbxw1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Scenary"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Scenary/StaticBody3D"]
+shape = SubResource("BoxShape3D_kh8jd")
+
+[node name="Wall" type="MeshInstance3D" parent="."]
+transform = Transform3D(15, 0, 0, 0, 15, 0, 0, 0, 1.967, -0.0709368, 5.01698, -5.53829)
+mesh = SubResource("BoxMesh_gbxw1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Wall"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall/StaticBody3D"]
+shape = SubResource("BoxShape3D_kh8jd")
+
+[node name="Zeit2" parent="." instance=ExtResource("1_6wsjw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.138435, 0)

@@ -1,0 +1,74 @@
+[gd_resource type="VisualShader" load_steps=8 format=3 uid="uid://c63tws037pu5e"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_treq3"]
+load_path = "res://.godot/imported/flame-png-4858.png-18d9a5da9a1193b73f85d14cf5e64b6d.s3tc.ctex"
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_hmcgn"]
+texture = SubResource("CompressedTexture2D_treq3")
+texture_type = 1
+
+[sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_oo2my"]
+output_port_for_preview = 0
+function = 31
+
+[sub_resource type="VisualShaderNodeColorFunc" id="VisualShaderNodeColorFunc_7wue0"]
+output_port_for_preview = 0
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_h2som"]
+source = 7
+texture = SubResource("CompressedTexture2D_treq3")
+
+[sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_ib71m"]
+output_port_for_preview = 0
+default_input_values = [1, Vector2(7, 7), 2, Vector2(0, 0)]
+function = 1
+
+[sub_resource type="VisualShaderNodeRotationByAxis" id="VisualShaderNodeRotationByAxis_ycwdf"]
+default_input_values = [1, 1.54, 2, Vector3(0, 0, 1)]
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, depth_prepass_alpha;
+
+uniform sampler2D tex_frg_10 : source_color;
+uniform sampler2D roughness_tex_frg_14 : hint_normal_roughness_texture;
+
+
+
+void fragment() {
+// Texture2D:10
+	vec4 n_out10p0 = texture(tex_frg_10, UV);
+
+
+	vec4 n_out14p0;
+// Texture2D:14
+	{
+		float _roughness = texture(roughness_tex_frg_14, UV).r;
+		n_out14p0 = vec4(_roughness, _roughness, _roughness, 1.0);
+	}
+
+
+// Output:0
+	ALBEDO = vec3(n_out10p0.xyz);
+	ALPHA = n_out14p0.x;
+	EMISSION = vec3(n_out10p0.xyz);
+
+
+}
+"
+modes/cull = 2
+flags/depth_prepass_alpha = true
+nodes/fragment/0/position = Vector2(1460, 260)
+nodes/fragment/8/node = SubResource("VisualShaderNodeUVFunc_ib71m")
+nodes/fragment/8/position = Vector2(-20, 520)
+nodes/fragment/9/node = SubResource("VisualShaderNodeRotationByAxis_ycwdf")
+nodes/fragment/9/position = Vector2(280, 560)
+nodes/fragment/10/node = SubResource("VisualShaderNodeTexture_hmcgn")
+nodes/fragment/10/position = Vector2(760, 360)
+nodes/fragment/12/node = SubResource("VisualShaderNodeFloatFunc_oo2my")
+nodes/fragment/12/position = Vector2(1160, 720)
+nodes/fragment/13/node = SubResource("VisualShaderNodeColorFunc_7wue0")
+nodes/fragment/13/position = Vector2(840, 740)
+nodes/fragment/14/node = SubResource("VisualShaderNodeTexture_h2som")
+nodes/fragment/14/position = Vector2(1060, 400)
+nodes/fragment/connections = PackedInt32Array(8, 0, 9, 0, 10, 0, 0, 0, 10, 0, 13, 0, 13, 0, 12, 0, 10, 0, 0, 5, 14, 0, 0, 1)
