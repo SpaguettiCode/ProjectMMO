@@ -1,0 +1,265 @@
+[gd_scene load_steps=10 format=3 uid="uid://bdqkofce3ywa5"]
+
+[ext_resource type="Texture2D" uid="uid://d4cpnwnpbbyg0" path="res://Scenary/LVL_test/Texture/Grit_0.5k.png" id="1_hr11t"]
+[ext_resource type="Script" path="res://Player/Script/player.gd" id="1_sjfx8"]
+
+[sub_resource type="SystemFont" id="SystemFont_wa02d"]
+font_names = PackedStringArray("DejaVu Sans Mono")
+font_italic = true
+subpixel_positioning = 0
+
+[sub_resource type="LabelSettings" id="LabelSettings_pb1ow"]
+font = SubResource("SystemFont_wa02d")
+font_size = 21
+font_color = Color(1, 0.965634, 0, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wdc53"]
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hwupr"]
+albedo_texture = ExtResource("1_hr11t")
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ymqsl"]
+height = 1.8
+radial_segments = 32
+rings = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tklnk"]
+albedo_color = Color(1, 0, 0.0166664, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_tgq5f"]
+material = SubResource("StandardMaterial3D_tklnk")
+size = Vector3(0.7, 0.4, 0.5)
+
+[node name="player" type="CharacterBody3D"]
+script = ExtResource("1_sjfx8")
+
+[node name="Estado" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Estado"]
+layout_mode = 2
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 1152.0
+offset_bottom = 41.0
+text = "Debug"
+label_settings = SubResource("LabelSettings_pb1ow")
+
+[node name="Label2" type="Label" parent="Estado"]
+layout_mode = 2
+offset_left = 24.0
+offset_top = 45.0
+offset_right = 1152.0
+offset_bottom = 70.0
+text = "Debug"
+label_settings = SubResource("LabelSettings_pb1ow")
+
+[node name="Label3" type="Label" parent="Estado"]
+layout_mode = 2
+offset_left = 24.0
+offset_top = 74.0
+offset_right = 1152.0
+offset_bottom = 99.0
+text = "Debug"
+label_settings = SubResource("LabelSettings_pb1ow")
+
+[node name="Label4" type="Label" parent="Estado"]
+layout_mode = 2
+offset_left = 24.0
+offset_top = 103.0
+offset_right = 1152.0
+offset_bottom = 128.0
+text = "Debug"
+label_settings = SubResource("LabelSettings_pb1ow")
+
+[node name="Label5" type="Label" parent="Estado"]
+layout_mode = 2
+offset_left = 24.0
+offset_top = 132.0
+offset_right = 1152.0
+offset_bottom = 157.0
+text = "Debug"
+label_settings = SubResource("LabelSettings_pb1ow")
+
+[node name="W" type="ColorRect" parent="Estado"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 320.0
+offset_top = 16.0
+offset_right = 370.0
+offset_bottom = 56.0
+grow_horizontal = 2
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Estado/W"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "W"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="A" type="ColorRect" parent="Estado"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 256.0
+offset_top = 72.0
+offset_right = 306.0
+offset_bottom = 112.0
+grow_horizontal = 2
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Estado/A"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "A"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="D" type="ColorRect" parent="Estado"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 384.0
+offset_top = 72.0
+offset_right = 434.0
+offset_bottom = 112.0
+grow_horizontal = 2
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Estado/D"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "D"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="S" type="ColorRect" parent="Estado"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 320.0
+offset_top = 72.0
+offset_right = 370.0
+offset_bottom = 112.0
+grow_horizontal = 2
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Estado/S"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "S"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Space" type="ColorRect" parent="Estado"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 472.0
+offset_top = 72.0
+offset_right = 552.0
+offset_bottom = 112.0
+grow_horizontal = 2
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Estado/Space"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Space"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="T" type="ColorRect" parent="Estado"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -88.0
+offset_top = 16.0
+offset_right = 96.0
+offset_bottom = 56.0
+grow_horizontal = 2
+color = Color(0, 1, 0, 1)
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Estado/T"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Combat mode"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Colicion" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.901463, 0)
+shape = SubResource("CapsuleShape3D_wdc53")
+
+[node name="Cuerpo" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.901463, 0)
+material_override = SubResource("StandardMaterial3D_hwupr")
+mesh = SubResource("CapsuleMesh_ymqsl")
+
+[node name="cara" type="MeshInstance3D" parent="Cuerpo"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.514537, -0.381351)
+mesh = SubResource("BoxMesh_tgq5f")
+skeleton = NodePath("../..")
+
+[node name="Camara_ctrl" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.573576, 0.819152, 0, -0.819152, 0.573576, 0, 2, 0)
+top_level = true
+
+[node name="Camera3D" type="Camera3D" parent="Camara_ctrl"]
+transform = Transform3D(1, 0, 0, 0, 0.99593, 0.0901284, 0, -0.0901284, 0.99593, 0, 1.155, 9.229)
+current = true
+far = 100.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
