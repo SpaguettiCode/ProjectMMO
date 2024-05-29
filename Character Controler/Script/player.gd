@@ -3,25 +3,49 @@ extends CharacterBody3D
 #se declaran variables de movimiento del player
 @export var SPEED : float = 5.0
 @export var JUMP_VELOCITY : float = 4.5
-@export var Angular_Speed :int = 5
-var direction : Vector3 = Vector3.ZERO
+@export var Angular_Speed :int = 10
+var direction : Vector3 = Vector3(0,0,1)
 var Mode_attack : bool = false
+var Inputvector : Vector3
 
 # se hace un llamado a la gravedad del motor
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 #Aqui se refferencian los nodos
-@onready var camara : Node = $Camara_ctrl
+@onready var camera : Node = $Camara_Ctrl
 @onready var player_mesh : Node = $Cuerpo
-@onready var radioVector: Node = $Camara_ctrl/Camera3D
+@onready var radioVector: Node = $Camara_Ctrl/RadioVector
 
 # variables para el movimiento de camara
 @export var Speed_Track : float = 0.5
 
+#Estas son las variables para las armas
+@onready var Gun : Node = $Cuerpo/cara/Gun
+var Bullet = load("res://Character/Bullet.tscn")
+@onready var direction_bullet :Node = $Origin_poitn/direction_bullet
+@onready var origin_poitn :Node = $Origin_poitn
+var Contador_1 = 0
+var Contador_2 = 8
+
 func _physics_process(delta):
+	
 	if Input.is_action_just_pressed("T"):
 		Mode_attack = !Mode_attack
 		print(Mode_attack)
+#region Mecanicas de un disparo
+	origin_poitn.rotation_degrees.y = player_mesh.rotation_degrees.y
+	if Input.is_action_just_pressed("Click") and Contador_1 <= 0:
+		Contador_1 = Contador_2 * delta
+		var bullet = Bullet.instantiate()
+		bullet.direction = direction_bullet.global_position - player_mesh.global_position
+		bullet.direction.y = 0
+		get_parent().add_child(bullet)
+		bullet.rotation_degrees.y = player_mesh.rotation_degrees.y - 90
+		#bullet.transform.basis.y = player_mesh.transform.basis.y
+		bullet.global_position = Gun.global_position
+	if Contador_1 > 0:
+		Contador_1 -= delta
+#endregion
 
 #region Player Movement
 	# Add the gravity.
@@ -30,31 +54,34 @@ func _physics_process(delta):
 	# Handle jump.
 	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-	
-	if Input.is_action_pressed("D") or Input.is_action_pressed("A") or Input.is_action_pressed("S") or Input.is_action_pressed("W"):
+		
+	Inputvector = (Vector3(int(Input.is_action_pressed("A")) - int(Input.is_action_pressed("D")), 
+			0, int(Input.is_action_pressed("W")) - int(Input.is_action_pressed("S"))))
+	if Inputvector:
+		direction = Inputvector
 			#Vector unitario
-		var _rotacionPlayer: float = radioVector.global_transform.basis.get_euler().y
-		direction = (Vector3(int(Input.is_action_pressed("D")) - int(Input.is_action_pressed("A")), 
-				0, int(Input.is_action_pressed("S")) - int(Input.is_action_pressed("W"))))
-		direction = direction.rotated(Vector3.UP, _rotacionPlayer).normalized()
-		direction = direction.normalized()
+		var rotacionPlayer: float = radioVector.global_transform.basis.get_euler().y
+		direction = direction.rotated(Vector3.UP, rotacionPlayer)
+		direction = direction.normalized() * -1
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 	move_and_slide()
-	# Rotando la maya esta peueña parte se cambiara por face direccion
+	# Rotando la maya esta pequeña parte se cambiara por face direccion
 	if Mode_attack == false:
-		player_mesh.rotation.y = lerp_angle(player_mesh.rotation.y, atan2(direction.x, direction.z) - deg_to_rad(180), delta * Angular_Speed)
+		player_mesh.rotation.y = lerp_angle(player_mesh.rotation.y, atan2(direction.x, direction.z), delta * Angular_Speed)
 	else:
 		pass
-		faceDirection(delta)
+		direction = faceDirection(delta)
 	Attack(randi_range(10,30))
 #endregion
+
 #region camara Control
-	camara.global_position.z = lerp(camara.global_position.z, self.global_position.z, Speed_Track * delta)
-	camara.global_position.x = lerp(camara.global_position.x, self.global_position.x, Speed_Track * delta)
+	camera.top_level = true
+	camera.global_position.z = lerp(camera.global_position.z, self.global_position.z, Speed_Track * delta)
+	camera.global_position.x = lerp(camera.global_position.x, self.global_position.x, Speed_Track * delta)
 #endregion
 
 #region DEBUG GUI
@@ -63,6 +90,7 @@ func _physics_process(delta):
 	$Estado/Label3.text = "FPS: " + str(Engine.get_frames_per_second())
 	$Estado/Label4.text = "Velocidad " + str(velocity)
 	$Estado/Label5.text = "Velocidad.Length()  = " + str(velocity.length())
+	$Estado/Label6.text = str("Direccion de disparo: ", direction_bullet.global_position.normalized())
 
 	if  Engine.get_frames_per_second() <= 24:
 		$Estado/Label3.text = "FPS: " + str(Engine.get_frames_per_second()) + " Inestables"
@@ -73,7 +101,7 @@ func _physics_process(delta):
 		
 func  _input(event):
 	if event is InputEventKey:
-		if event.as_text() == "W" or event.as_text() == "S" or event.as_text() == "D" or event.as_text() == "A" or event.as_text() == "Space":
+		if event.as_text() == "W" or event.as_text() == "S" or event.as_text() == "D" or event.as_text() == "A" or event.as_text() == "C" or event.as_text() == "Space":
 			if event.pressed:
 				get_node("Estado/" + event.as_text()).color = Color("db0100f3")
 			else:
@@ -88,18 +116,19 @@ func  _input(event):
 #endregion
 
 func faceDirection(delta):
-	var camera = $Camara_ctrl/Camera3D
+	var Camera = $Camara_Ctrl/Camera3D
 	var mouse_position = get_viewport().get_mouse_position()
-	var ray_direction = camera.project_ray_normal(mouse_position)
-	var camera_origin = camera.global_transform.origin
+	var ray_direction = Camera.project_ray_normal(mouse_position)
+	var Camera_origin = Camera.global_transform.origin
 	var base_ray = ray_direction.normalized()
-	var s = -camera_origin.y / base_ray.y
-	var intersection_point = camera_origin + base_ray * s
+	var s = -Camera_origin.y / base_ray.y
+	var intersection_point = Camera_origin + base_ray * s
 	var target_direction = (intersection_point - global_transform.origin).normalized()
 	target_direction.y = 0
 	#var look_rotation = Basis().looking_at(target_direction, Vector3(0, 1, 0),false)
 	#global_transform.basis = global_transform.basis.slerp(look_rotation, Angular_Speed * delta)
-	player_mesh.rotation.y = lerp_angle(player_mesh.rotation.y, atan2(target_direction.x, target_direction.z) - deg_to_rad(180), delta * Angular_Speed)
+	player_mesh.rotation.y = lerp_angle(player_mesh.rotation.y, atan2(target_direction.x, target_direction.z), delta * Angular_Speed)
+	return target_direction
 	
 func Action_AttackMode():
 	var input_vector = Vector3.ZERO
