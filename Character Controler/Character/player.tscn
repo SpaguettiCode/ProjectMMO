@@ -1,19 +1,19 @@
-[gd_scene load_steps=10 format=3 uid="uid://bdqkofce3ywa5"]
+[gd_scene load_steps=13 format=3 uid="uid://bdqkofce3ywa5"]
 
 [ext_resource type="Texture2D" uid="uid://d4cpnwnpbbyg0" path="res://Texture/Grit_0.5k.png" id="1_hr11t"]
 [ext_resource type="Script" path="res://Script/player.gd" id="1_sjfx8"]
 
-[sub_resource type="SystemFont" id="SystemFont_wa02d"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wdc53"]
+height = 1.8
+
+[sub_resource type="SystemFont" id="SystemFont_pijkw"]
 font_names = PackedStringArray("DejaVu Sans Mono")
 font_italic = true
 
 [sub_resource type="LabelSettings" id="LabelSettings_pb1ow"]
-font = SubResource("SystemFont_wa02d")
+font = SubResource("SystemFont_pijkw")
 font_size = 21
 font_color = Color(1, 0.965634, 0, 1)
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wdc53"]
-height = 1.8
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hwupr"]
 albedo_texture = ExtResource("1_hr11t")
@@ -23,15 +23,29 @@ height = 1.8
 radial_segments = 32
 rings = 4
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tklnk"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oywvw"]
 albedo_color = Color(1, 0, 0.0166664, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_tgq5f"]
-material = SubResource("StandardMaterial3D_tklnk")
+material = SubResource("StandardMaterial3D_oywvw")
 size = Vector3(0.7, 0.4, 0.5)
 
+[sub_resource type="BoxMesh" id="BoxMesh_nk1qc"]
+size = Vector3(0.3, 0.3, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_euff5"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_l3d7q"]
+size = Vector3(0.5, 0.5, 0.5)
+
 [node name="player" type="CharacterBody3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_sjfx8")
+
+[node name="Colicion" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.901463, 0)
+shape = SubResource("CapsuleShape3D_wdc53")
 
 [node name="Estado" type="Control" parent="."]
 layout_mode = 3
@@ -83,6 +97,15 @@ offset_left = 24.0
 offset_top = 132.0
 offset_right = 1152.0
 offset_bottom = 157.0
+text = "Debug"
+label_settings = SubResource("LabelSettings_pb1ow")
+
+[node name="Label6" type="Label" parent="Estado"]
+layout_mode = 2
+offset_left = 24.0
+offset_top = 168.0
+offset_right = 1152.0
+offset_bottom = 198.0
 text = "Debug"
 label_settings = SubResource("LabelSettings_pb1ow")
 
@@ -186,6 +209,31 @@ text = "S"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="C" type="ColorRect" parent="Estado"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -88.0
+offset_top = 64.0
+offset_right = 96.0
+offset_bottom = 104.0
+grow_horizontal = 2
+metadata/_edit_group_ = true
+
+[node name="Label" type="Label" parent="Estado/C"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+text = "Disparo"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Space" type="ColorRect" parent="Estado"]
 layout_mode = 1
 anchors_preset = 5
@@ -238,12 +286,8 @@ text = "Combat mode"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Colicion" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.901463, 0)
-shape = SubResource("CapsuleShape3D_wdc53")
-
 [node name="Cuerpo" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.901463, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 material_override = SubResource("StandardMaterial3D_hwupr")
 mesh = SubResource("CapsuleMesh_ymqsl")
 
@@ -252,13 +296,26 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.5
 mesh = SubResource("BoxMesh_tgq5f")
 skeleton = NodePath("../..")
 
-[node name="Camara_ctrl" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.573576, 0.819152, 0, -0.819152, 0.573576, 0, 2, 0)
-top_level = true
+[node name="Gun" type="Node3D" parent="Cuerpo/cara"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.731015, -0.000491977, 3.19537e-08)
 
-[node name="Camera3D" type="Camera3D" parent="Camara_ctrl"]
-transform = Transform3D(1, 0, 0, 0, 0.99593, 0.0901284, 0, -0.0901284, 0.99593, 0, 1.155, 9.229)
-current = true
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cuerpo/cara/Gun"]
+mesh = SubResource("BoxMesh_nk1qc")
+surface_material_override/0 = SubResource("StandardMaterial3D_euff5")
+
+[node name="Camara_Ctrl" type="Node3D" parent="."]
+
+[node name="RadioVector" type="Node3D" parent="Camara_Ctrl"]
+
+[node name="Camera3D" type="Camera3D" parent="Camara_Ctrl"]
+transform = Transform3D(1, 0, 0, 0, 0.573576, 0.819152, 0, -0.819152, 0.573576, 0, 8, 2.815)
 far = 100.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="Origin_poitn" type="Node3D" parent="."]
+
+[node name="direction_bullet" type="Node3D" parent="Origin_poitn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Origin_poitn/direction_bullet"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+mesh = SubResource("BoxMesh_l3d7q")
