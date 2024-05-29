@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvvmyuoll4dgr"]
+
+[ext_resource type="Script" path="res://Bullets/Bullet.gd" id="1_181qc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oq67f"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 3.0
+grow_amount = 0.2
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_guviv"]
+material = SubResource("StandardMaterial3D_oq67f")
+radius = 0.1
+height = 0.5
+radial_segments = 12
+rings = 4
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1yjq6"]
+radius = 0.805575
+height = 1.61115
+
+[node name="Bullet" type="CharacterBody3D"]
+script = ExtResource("1_181qc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_guviv")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CapsuleShape3D_1yjq6")
