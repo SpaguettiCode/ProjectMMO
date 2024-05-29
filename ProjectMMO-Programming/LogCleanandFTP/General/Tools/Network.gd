@@ -12,7 +12,7 @@ func Client_Connection(adress:String,Port:int):
 	multiplayer.multiplayer_peer = eNet
 	eNet.peer_connected.connect(Callable(self, "_on_peer_connected"))
 
-
+#peer connected
 func _on_peer_connected(peer_id: int):
 	var client_address = eNet.get_peer(peer_id).get_remote_address()
 	print("Usuario conectado con IP: ",client_address)
