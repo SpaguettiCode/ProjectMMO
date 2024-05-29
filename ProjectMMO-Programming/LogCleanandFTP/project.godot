@@ -16,6 +16,10 @@ config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/image="res://General/Images/TEAM.png"
 config/icon="res://icon.svg"
 
+[autoload]
+
+Network="*res://General/Tools/Network.gd"
+
 [display]
 
 window/stretch/mode="canvas_items"

@@ -164,3 +164,11 @@ func Attack(dammage):
 		rayQuery.collide_with_areas = true
 		var result = space.intersect_ray(rayQuery)
 		print("Disparo en: " + str(result))
+
+
+func _on_cliente_pressed():
+	Network.Client_Connection("127.0.0.1",21)
+
+
+func _on_server_pressed():
+	Network.Server_Connection(21)

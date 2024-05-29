@@ -287,6 +287,22 @@ text = "Combat mode"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Server" type="Button" parent="Estado"]
+layout_mode = 0
+offset_left = 208.0
+offset_top = 6.0
+offset_right = 393.0
+offset_bottom = 53.0
+text = "Server
+"
+
+[node name="Cliente" type="Button" parent="Estado"]
+offset_left = 208.0
+offset_top = 59.0
+offset_right = 393.0
+offset_bottom = 106.0
+text = "Cliente"
+
 [node name="Cuerpo" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 material_override = SubResource("StandardMaterial3D_hwupr")
@@ -320,3 +336,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Origin_poitn/direction_bullet"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 mesh = SubResource("BoxMesh_l3d7q")
+
+[connection signal="pressed" from="Estado/Server" to="." method="_on_server_pressed"]
+[connection signal="pressed" from="Estado/Cliente" to="." method="_on_cliente_pressed"]
