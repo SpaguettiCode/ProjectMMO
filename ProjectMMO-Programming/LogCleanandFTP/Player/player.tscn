@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bdqkofce3ywa5"]
+[gd_scene load_steps=14 format=3 uid="uid://bdqkofce3ywa5"]
 
 [ext_resource type="Texture2D" uid="uid://d4cpnwnpbbyg0" path="res://Scenary/Texture/Grit_0.5k.png" id="1_hr11t"]
 [ext_resource type="Script" path="res://Player/player.gd" id="1_ww46t"]
@@ -40,6 +40,23 @@ albedo_color = Color(0, 0, 1, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_l3d7q"]
 size = Vector3(0.5, 0.5, 0.5)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8p4qg"]
+properties/0/path = NodePath("Cuerpo:rotation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:position")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:Bullet")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:Gun")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:gravity")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
 [node name="player" type="CharacterBody3D"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_ww46t")
@@ -55,6 +72,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="Estado"]
 layout_mode = 2
@@ -287,22 +305,6 @@ text = "Combat mode"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Server" type="Button" parent="Estado"]
-layout_mode = 0
-offset_left = 208.0
-offset_top = 6.0
-offset_right = 393.0
-offset_bottom = 53.0
-text = "Server
-"
-
-[node name="Cliente" type="Button" parent="Estado"]
-offset_left = 208.0
-offset_top = 59.0
-offset_right = 393.0
-offset_bottom = 106.0
-text = "Cliente"
-
 [node name="Cuerpo" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 material_override = SubResource("StandardMaterial3D_hwupr")
@@ -337,5 +339,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 mesh = SubResource("BoxMesh_l3d7q")
 
-[connection signal="pressed" from="Estado/Server" to="." method="_on_server_pressed"]
-[connection signal="pressed" from="Estado/Cliente" to="." method="_on_cliente_pressed"]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_8p4qg")

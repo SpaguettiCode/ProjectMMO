@@ -1,7 +1,9 @@
 extends Node
 
 var eNet = ENetMultiplayerPeer.new()
-var ID : int
+@export var player_scene : PackedScene = preload("res://Player/player.tscn")
+
+var IDData = 0
 
 #region Cliente
 func Client_Connection(adress:String,Port:int):
@@ -11,25 +13,7 @@ func Client_Connection(adress:String,Port:int):
 	else:
 		LoggData.info("Conexion establecida")
 	multiplayer.multiplayer_peer = eNet
-	eNet.peer_connected.connect(_on_peer_connected)
-
-#peer connected
-func _on_peer_connected(peer_id: int):
-	var client_address = eNet.get_peer(peer_id).get_remote_address()
-	print("Usuario conectado con IP: ",client_address)
-	ID = peer_id
-	print("Usuario con la ID: ",ID )
-	SendDataToHost(client_address)
-
-@rpc("any_peer","reliable")
-func SendDataToHost(peer):
-	SendDataToHost.rpc_id(1,peer)
-	if multiplayer.is_server():
-		print("Usuario conectado al servidor con la IP: ", peer)
-
-func _on_peer_disconnected(peer_id: int):
-	var client_address = eNet.get_peer(peer_id).get_host().address
-	print(client_address)
+	#_add_player(eNet.get_unique_id())
 #endregion
 
 #region Server
@@ -39,6 +23,5 @@ func Server_Connection(port:int):
 		LoggData.error("Fallo de servidor: no inicio",err)
 	else:
 		LoggData.info("Servidor iniciado." ,err)
-	multiplayer.multiplayer_peer = eNet
-
+		multiplayer.multiplayer_peer = eNet
 #endregion

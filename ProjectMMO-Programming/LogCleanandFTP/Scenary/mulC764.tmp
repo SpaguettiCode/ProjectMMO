@@ -1,0 +1,70 @@
+[gd_scene load_steps=12 format=3 uid="uid://ctst681aw1nlt"]
+
+[ext_resource type="Script" path="res://Scenary/Script/MultiplayerScene.gd" id="1_1fvu7"]
+[ext_resource type="Texture2D" uid="uid://swrj6fcx1kn8" path="res://Scenary/Texture/Suelo_sesped1_Color.jpg" id="2_4ctgq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_00kps"]
+albedo_texture = ExtResource("2_4ctgq")
+uv1_scale = Vector3(4, 4, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_o7p4b"]
+material = SubResource("StandardMaterial3D_00kps")
+size = Vector3(20, 0.1, 20)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_le7gf"]
+sky_top_color = Color(0.219608, 0.537255, 0.709804, 1)
+sky_horizon_color = Color(0.604902, 0.676564, 0.710701, 1)
+sky_energy_multiplier = 0.5
+ground_horizon_color = Color(0.604902, 0.676564, 0.710701, 1)
+
+[sub_resource type="Sky" id="Sky_r73q3"]
+sky_material = SubResource("ProceduralSkyMaterial_le7gf")
+
+[sub_resource type="Environment" id="Environment_i8q47"]
+background_mode = 2
+sky = SubResource("Sky_r73q3")
+tonemap_mode = 3
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.005
+
+[sub_resource type="Gradient" id="Gradient_6bdvl"]
+offsets = PackedFloat32Array(0.394495, 0.651376)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_i1l0l"]
+frequency = 0.0445
+fractal_weighted_strength = 0.12
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_v0u60"]
+color_ramp = SubResource("Gradient_6bdvl")
+noise = SubResource("FastNoiseLite_i1l0l")
+
+[sub_resource type="FogMaterial" id="FogMaterial_mwh0u"]
+density = 2.28
+density_texture = SubResource("NoiseTexture3D_v0u60")
+
+[node name="MultiplayerScene" type="Node3D"]
+script = ExtResource("1_1fvu7")
+
+[node name="Ground" type="CSGMesh3D" parent="."]
+use_collision = true
+mesh = SubResource("BoxMesh_o7p4b")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Player/player.tscn")
+spawn_path = NodePath("../Entrada")
+
+[node name="Entrada" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.97705, 0, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_i8q47")
+
+[node name="FogVolume" type="FogVolume" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.336287, 0)
+size = Vector3(24.8774, 2, 21.3697)
+material = SubResource("FogMaterial_mwh0u")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.623773, -0.441663, -0.644857, -0.775707, 0.248644, 0.580048, -0.0958458, 0.862038, -0.497698, 0, 0, 0)
+shadow_enabled = true

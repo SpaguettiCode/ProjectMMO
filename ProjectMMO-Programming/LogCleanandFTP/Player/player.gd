@@ -1,5 +1,8 @@
 extends CharacterBody3D
 
+var eNet = ENetMultiplayerPeer.new()
+
+
 #se declaran variables de movimiento del player
 @export var SPEED : float = 5.0
 @export var JUMP_VELOCITY : float = 4.5
@@ -27,58 +30,59 @@ var Bullet = load("res://Bullets/Bullet.tscn")
 var Contador_1 = 0
 var Contador_2 = 8
 
-func _ready():
-	LoggData.LogMessage("Status",null,LoggData.LogLevel.ERROR)
+func _enter_tree():
+	set_multiplayer_authority(name.to_int())
+	LoggData.info(str(name.to_int()))
 
 func _physics_process(delta):
-	
-	if Input.is_action_just_pressed("T"):
-		Mode_attack = !Mode_attack
-		print(Mode_attack)
+	if is_multiplayer_authority():
+		if Input.is_action_just_pressed("T"):
+			Mode_attack = !Mode_attack
+			print(Mode_attack)
 #region Mecanicas de un disparo
-	origin_poitn.rotation_degrees.y = player_mesh.rotation_degrees.y
-	if Input.is_action_just_pressed("Click") and Contador_1 <= 0:
-		Contador_1 = Contador_2 * delta
-		var bullet = Bullet.instantiate()
-		bullet.direction = direction_bullet.global_position - player_mesh.global_position
-		bullet.direction.y = 0
-		get_parent().add_child(bullet)
-		bullet.rotation_degrees.y = player_mesh.rotation_degrees.y - 90
-		#bullet.transform.basis.y = player_mesh.transform.basis.y
-		bullet.global_position = Gun.global_position
-	if Contador_1 > 0:
-		Contador_1 -= delta
+		origin_poitn.rotation_degrees.y = player_mesh.rotation_degrees.y
+		if Input.is_action_just_pressed("Click") and Contador_1 <= 0:
+			Contador_1 = Contador_2 * delta
+			var bullet = Bullet.instantiate()
+			bullet.direction = direction_bullet.global_position - player_mesh.global_position
+			bullet.direction.y = 0
+			get_parent().add_child(bullet)
+			bullet.rotation_degrees.y = player_mesh.rotation_degrees.y - 90
+			#bullet.transform.basis.y = player_mesh.transform.basis.y
+			bullet.global_position = Gun.global_position
+		if Contador_1 > 0:
+			Contador_1 -= delta
 #endregion
 
 #region Player Movement
 	# Add the gravity.
-	if not is_on_floor():
-		velocity.y -= gravity * delta
+		if not is_on_floor():
+			velocity.y -= gravity * delta
 	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
+		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+			velocity.y = JUMP_VELOCITY
 		
-	Inputvector = (Vector3(int(Input.is_action_pressed("A")) - int(Input.is_action_pressed("D")), 
-			0, int(Input.is_action_pressed("W")) - int(Input.is_action_pressed("S"))))
-	if Inputvector:
-		direction = Inputvector
-			#Vector unitario
-		var rotacionPlayer: float = radioVector.global_transform.basis.get_euler().y
-		direction = direction.rotated(Vector3.UP, rotacionPlayer)
-		direction = direction.normalized() * -1
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
-	move_and_slide()
+		Inputvector = (Vector3(int(Input.is_action_pressed("A")) - int(Input.is_action_pressed("D")), 
+				0, int(Input.is_action_pressed("W")) - int(Input.is_action_pressed("S"))))
+		if Inputvector:
+			direction = Inputvector
+				#Vector unitario
+			var rotacionPlayer: float = radioVector.global_transform.basis.get_euler().y
+			direction = direction.rotated(Vector3.UP, rotacionPlayer)
+			direction = direction.normalized() * -1
+			velocity.x = direction.x * SPEED
+			velocity.z = direction.z * SPEED
+		else:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
+			velocity.z = move_toward(velocity.z, 0, SPEED)
+		move_and_slide()
 	# Rotando la maya esta pequeña parte se cambiara por face direccion
-	if Mode_attack == false:
-		player_mesh.rotation.y = lerp_angle(player_mesh.rotation.y, atan2(direction.x, direction.z), delta * Angular_Speed)
-	else:
-		pass
-		direction = faceDirection(delta)
-	Attack(randi_range(10,30))
+		if Mode_attack == false:
+			player_mesh.rotation.y = lerp_angle(player_mesh.rotation.y, atan2(direction.x, direction.z), delta * Angular_Speed)
+		else:
+			pass
+			direction = faceDirection(delta)
+		Attack(randi_range(10,30))
 #endregion
 
 #region camara Control
@@ -119,19 +123,20 @@ func  _input(event):
 #endregion
 
 func faceDirection(delta):
-	var Camera = $Camara_Ctrl/Camera3D
-	var mouse_position = get_viewport().get_mouse_position()
-	var ray_direction = Camera.project_ray_normal(mouse_position)
-	var Camera_origin = Camera.global_transform.origin
-	var base_ray = ray_direction.normalized()
-	var s = -Camera_origin.y / base_ray.y
-	var intersection_point = Camera_origin + base_ray * s
-	var target_direction = (intersection_point - global_transform.origin).normalized()
-	target_direction.y = 0
-	#var look_rotation = Basis().looking_at(target_direction, Vector3(0, 1, 0),false)
-	#global_transform.basis = global_transform.basis.slerp(look_rotation, Angular_Speed * delta)
-	player_mesh.rotation.y = lerp_angle(player_mesh.rotation.y, atan2(target_direction.x, target_direction.z), delta * Angular_Speed)
-	return target_direction
+	if is_multiplayer_authority():
+		var Camera = $Camara_Ctrl/Camera3D
+		var mouse_position = get_viewport().get_mouse_position()
+		var ray_direction = Camera.project_ray_normal(mouse_position)
+		var Camera_origin = Camera.global_transform.origin
+		var base_ray = ray_direction.normalized()
+		var s = -Camera_origin.y / base_ray.y
+		var intersection_point = Camera_origin + base_ray * s
+		var target_direction = (intersection_point - global_transform.origin).normalized()
+		target_direction.y = 0
+		#var look_rotation = Basis().looking_at(target_direction, Vector3(0, 1, 0),false)
+		#global_transform.basis = global_transform.basis.slerp(look_rotation, Angular_Speed * delta)
+		player_mesh.rotation.y = lerp_angle(player_mesh.rotation.y, atan2(target_direction.x, target_direction.z), delta * Angular_Speed)
+		return target_direction
 	
 func Action_AttackMode():
 	var input_vector = Vector3.ZERO
@@ -166,9 +171,9 @@ func Attack(dammage):
 		print("Disparo en: " + str(result))
 
 
-func _on_cliente_pressed():
-	Network.Client_Connection("127.0.0.1",21)
 
 
-func _on_server_pressed():
-	Network.Server_Connection(21)
+
+
+
+

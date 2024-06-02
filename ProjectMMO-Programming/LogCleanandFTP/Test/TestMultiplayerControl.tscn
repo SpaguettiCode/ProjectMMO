@@ -1,0 +1,99 @@
+[gd_scene load_steps=13 format=3 uid="uid://07sluiyv335r"]
+
+[ext_resource type="Script" path="res://Test/TestMultiplayerControl.gd" id="1_528pi"]
+[ext_resource type="PackedScene" uid="uid://bdqkofce3ywa5" path="res://Player/player.tscn" id="2_ltgxy"]
+[ext_resource type="Material" uid="uid://cfdl270xfogmq" path="res://Scenary/Texture/Grass.tres" id="3_00jkp"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_w7o6b"]
+material = ExtResource("3_00jkp")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bt6wc"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ayhx0"]
+sky_top_color = Color(0.219608, 0.537255, 0.709804, 1)
+sky_horizon_color = Color(0.604902, 0.676564, 0.710701, 1)
+sky_energy_multiplier = 0.5
+ground_horizon_color = Color(0.604902, 0.676564, 0.710701, 1)
+
+[sub_resource type="Sky" id="Sky_2glpo"]
+sky_material = SubResource("ProceduralSkyMaterial_ayhx0")
+
+[sub_resource type="Environment" id="Environment_1cfnp"]
+background_mode = 2
+sky = SubResource("Sky_2glpo")
+tonemap_mode = 3
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.005
+
+[sub_resource type="Gradient" id="Gradient_ru0v3"]
+offsets = PackedFloat32Array(0.394495, 0.651376)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2fg7x"]
+frequency = 0.0445
+fractal_weighted_strength = 0.12
+
+[sub_resource type="NoiseTexture3D" id="NoiseTexture3D_1eqei"]
+color_ramp = SubResource("Gradient_ru0v3")
+noise = SubResource("FastNoiseLite_2fg7x")
+
+[sub_resource type="FogMaterial" id="FogMaterial_8og36"]
+density = 2.28
+density_texture = SubResource("NoiseTexture3D_1eqei")
+
+[node name="TestMultiplayerControl" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_528pi")
+player_scene = ExtResource("2_ltgxy")
+
+[node name="Server" type="Button" parent="."]
+offset_left = 208.0
+offset_top = 6.0
+offset_right = 393.0
+offset_bottom = 53.0
+text = "Server
+"
+
+[node name="Cliente" type="Button" parent="."]
+offset_left = 208.0
+offset_top = 59.0
+offset_right = 393.0
+offset_bottom = 106.0
+text = "Cliente"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Player/player.tscn")
+spawn_path = NodePath("..")
+
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+transform = Transform3D(70.6265, 0, 0, 0, -0.00778389, 0, 0, 0, 44.5229, 0, -1.62348, 0)
+mesh = SubResource("BoxMesh_w7o6b")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Node3D/MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/MeshInstance3D/StaticBody3D"]
+shape = SubResource("BoxShape3D_bt6wc")
+
+[node name="Enviorement" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Enviorement"]
+environment = SubResource("Environment_1cfnp")
+
+[node name="FogVolume" type="FogVolume" parent="Enviorement/WorldEnvironment"]
+transform = Transform3D(2.91122, 0, 0, 0, 1, 0, 0, 0, 2.04736, 0, -0.336287, 0)
+size = Vector3(24.8774, 2, 21.3697)
+material = SubResource("FogMaterial_8og36")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Enviorement"]
+transform = Transform3D(-0.915105, -0.228532, -0.332198, -0.390901, 0.30077, 0.869904, -0.0988863, 0.925911, -0.36457, 0, -0.336287, 0)
+shadow_enabled = true
+
+[connection signal="pressed" from="Server" to="." method="_on_server_pressed"]
+[connection signal="pressed" from="Cliente" to="." method="_on_cliente_pressed"]
