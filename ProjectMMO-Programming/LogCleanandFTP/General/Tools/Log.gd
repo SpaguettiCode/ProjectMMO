@@ -19,9 +19,8 @@ func _ready():
 	name = "Log"
 
 
-static func LogMessage(message:String,value,log_level = LogLevel.INFO):
-	if CURRENT_LOG_LEVEL > log_level:
-		return
+static func LogMessage(message:String,log_level = LogLevel.INFO):
+
 	var log_msg_format = "{level} [{time}]{prefix} {message} "
 	var now = Time.get_datetime_dict_from_system(true)
 	var msg = log_msg_format.format(
@@ -47,18 +46,18 @@ static func LogMessage(message:String,value,log_level = LogLevel.INFO):
 			printerr(msg)
 	FTP_Data.new().GoUP()
 
-static func debug(message:String,values={}):
-	LogMessage(message,values,LogLevel.DEBUG)
+static func debug(message:String):
+	LogMessage(message,LogLevel.DEBUG)
 
-static func warn(message:String,values={}):
-	LogMessage(message,values,LogLevel.WARN)
+static func warn(message:String):
+	LogMessage(message,LogLevel.WARN)
 
-static func error(message:String,values={}):
-	LogMessage(message,values,LogLevel.ERROR)
+static func error(message:String,):
+	LogMessage(message,LogLevel.ERROR)
 	
 
-static func fatal(tree:SceneTree,message:String,values={}):
-	LogMessage(message,values,LogLevel.FATAL)
+static func fatal(message:String):
+	LogMessage(message,LogLevel.FATAL)
 
 static func info(message:String,values={}):
 	LogMessage(message,values)

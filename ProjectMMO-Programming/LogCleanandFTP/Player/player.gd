@@ -32,7 +32,7 @@ var Contador_2 = 8
 
 func _enter_tree():
 	set_multiplayer_authority(name.to_int())
-	LoggData.info(str(name.to_int()))
+
 
 func _physics_process(delta):
 	if is_multiplayer_authority():
@@ -82,7 +82,7 @@ func _physics_process(delta):
 		else:
 			pass
 			direction = faceDirection(delta)
-		Attack(randi_range(10,30))
+
 #endregion
 
 #region camara Control
@@ -155,20 +155,7 @@ func Action_AttackMode():
 
 	move_and_slide()
 
-func Attack(dammage):
-	if Input.is_action_just_pressed("Atacar"):
-		var camera = $Camara_ctrl/Camera3D
-		var mousePos = get_viewport().get_mouse_position()
-		var rayQuery = PhysicsRayQueryParameters3D.new()
-		var rayLength = 100
-		var from = camera.project_ray_origin(mousePos)
-		var to = from + camera.project_ray_normal(mousePos) * rayLength
-		var space = get_world_3d().direct_space_state
-		rayQuery.from = from
-		rayQuery.to = to
-		rayQuery.collide_with_areas = true
-		var result = space.intersect_ray(rayQuery)
-		print("Disparo en: " + str(result))
+
 
 
 

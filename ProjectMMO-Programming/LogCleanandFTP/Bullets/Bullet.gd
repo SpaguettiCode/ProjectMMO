@@ -7,7 +7,7 @@ func _ready():
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
+func _physics_process(_delta):
 	direction = direction.normalized()
 	velocity.x = Speed * direction.x
 	velocity.z = Speed * direction.z

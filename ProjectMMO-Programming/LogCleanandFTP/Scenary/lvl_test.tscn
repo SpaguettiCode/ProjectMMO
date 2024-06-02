@@ -1,5 +1,6 @@
-[gd_scene load_steps=13 format=3 uid="uid://l1m3nlxv7lh0"]
+[gd_scene load_steps=14 format=3 uid="uid://l1m3nlxv7lh0"]
 
+[ext_resource type="Script" path="res://Scenary/lvl_test.gd" id="1_5tgqw"]
 [ext_resource type="Material" uid="uid://duspu77aep3fg" path="res://Scenary/Texture/Grit-material.tres" id="1_bee2l"]
 [ext_resource type="Material" uid="uid://cfdl270xfogmq" path="res://Scenary/Texture/Grass.tres" id="2_wh4tv"]
 [ext_resource type="PackedScene" uid="uid://bdqkofce3ywa5" path="res://Player/player.tscn" id="3_1v2i4"]
@@ -36,14 +37,15 @@ noise = SubResource("FastNoiseLite_kltwt")
 density = 2.28
 density_texture = SubResource("NoiseTexture3D_occ6i")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_nsq0x"]
+size = Vector3(3.3468, 3.03516, 3.93408)
+
 [sub_resource type="BoxMesh" id="BoxMesh_at8qi"]
 material = ExtResource("2_wh4tv")
 size = Vector3(20, 0.1, 20)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_nsq0x"]
-size = Vector3(3.3468, 3.03516, 3.93408)
-
 [node name="lvl_test" type="Node3D"]
+script = ExtResource("1_5tgqw")
 
 [node name="Entorno" type="Node3D" parent="."]
 
@@ -60,12 +62,20 @@ transform = Transform3D(-0.623773, -0.441663, -0.644857, -0.775707, 0.248644, 0.
 shadow_enabled = true
 
 [node name="Terreno" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
 
 [node name="Pilar" type="CSGBox3D" parent="Terreno"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.41965, 1.02633, 0.209412)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.72205, 1.0375, -1.63711)
 material_override = ExtResource("1_bee2l")
 use_collision = true
 size = Vector3(1, 4.43103, 1.41882)
+
+[node name="Area3D" type="Area3D" parent="Terreno/Pilar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Terreno/Pilar/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.302551, 1.01758, -0.135986)
+shape = SubResource("BoxShape3D_nsq0x")
 
 [node name="Pilar4" type="CSGBox3D" parent="Terreno"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0261, -0.145388, 6.32131)
@@ -89,13 +99,6 @@ size = Vector3(1, 4.43103, 1.41882)
 use_collision = true
 mesh = SubResource("BoxMesh_at8qi")
 
-[node name="Area3D" type="Area3D" parent="Terreno"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.41965, 0.02633, 0.209412)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Terreno/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.302551, 1.01758, -0.135986)
-shape = SubResource("BoxShape3D_nsq0x")
-
 [node name="player" parent="." instance=ExtResource("3_1v2i4")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -2.47716)
 
@@ -103,4 +106,5 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 _spawnable_scenes = PackedStringArray("res://Player/player.tscn")
 spawn_path = NodePath("..")
 
-[connection signal="area_entered" from="Terreno/Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_entered" from="Terreno/Pilar/Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_exited" from="Terreno/Pilar/Area3D" to="." method="_on_area_3d_area_exited"]
